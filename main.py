@@ -5,7 +5,7 @@ import cv2
 import mediapipe as mp
 import numpy as np
 import pandas as pd
-from flask import Flask, request
+from flask import Flask, render_template, request
 
 
 mp_face_mesh = mp.solutions.face_mesh
@@ -105,7 +105,7 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 @app.route('/')
 def index():
     print("Index hit")
-    return 'index.html'
+    return render_template('index.html')
 
 
 @app.route('/analyze', methods=['POST'])
@@ -126,7 +126,7 @@ def analyze():
     if not result_filename:
         return "Error processing image.", 500
 
-    return ("results.html", symptoms=symptoms, treatments=treatments, file=result_filename)
+    return render_template("results.html", symptoms=symptoms, treatments=treatments, file=result_filename)
 
 if __name__ == '__main__':
     os.makedirs(UPLOAD_FOLDER, exist_ok=True)
