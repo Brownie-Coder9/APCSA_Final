@@ -100,6 +100,7 @@ def detect_symptoms(filepath):
 app = Flask(__name__, static_url_path='/static', static_folder='static')
 UPLOAD_FOLDER = 'uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 @app.route('/')
 def index():
